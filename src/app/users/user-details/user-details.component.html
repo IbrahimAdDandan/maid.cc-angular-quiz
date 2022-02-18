@@ -1,0 +1,18 @@
+<p-breadcrumb [model]="items"></p-breadcrumb>
+<div class="grid">
+    <div class="col-4 col-offset-4">
+        <br>
+        <p-progressBar mode="indeterminate" [style]="{ height: '5px' }" *ngIf="waiting"></p-progressBar>
+        <p-card *ngIf="!waiting" [header]="user.first_name + user.last_name" [subheader]="user.email"
+             styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+                <img alt="Card" [src]="user.avatar">
+            </ng-template>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
+                repudiandae numquam deserunt
+                quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse,
+                cupiditate
+                neque quas!</p>
+        </p-card>
+    </div>
+</div>
