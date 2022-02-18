@@ -1,7 +1,8 @@
 <div class="grid">
     <div class="col-8 col-offset-2">
         <div>
-           
+            <p-paginator *ngIf="!waiting" [rows]="6" [totalRecords]="totalRecords" [rowsPerPageOptions]="[6]"
+                (onPageChange)="paginate($event)"></p-paginator>
         </div>
         <p-progressBar mode="indeterminate" [style]="{ height: '5px' }" *ngIf="waiting"></p-progressBar>
         <div class="grid">
