@@ -23,6 +23,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
 //#endregion
 
 @NgModule({
@@ -47,7 +48,8 @@ import { CardModule } from 'primeng/card';
     ToolbarModule,
     ButtonModule,
     BreadcrumbModule,
-    CardModule
+    CardModule,
+    InputTextModule
   ],
   providers: [
     MessageService,

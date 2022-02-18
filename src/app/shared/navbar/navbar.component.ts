@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Event, Router } from '@angular/router';
 import { MenuItem, PrimeIcons } from 'primeng/api';
+import { ObserveSearchService } from '../service/observe-search.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,8 +12,9 @@ export class NavbarComponent implements OnInit {
 
   menuItems: MenuItem[] = [];
   customStyle: any;
+  searchValue: string = '';
 
-  constructor() { }
+  constructor(private _observeSearch: ObserveSearchService, private _router: Router) { }
 
   ngOnInit(): void {
     this.customStyle = {
@@ -29,6 +32,16 @@ export class NavbarComponent implements OnInit {
         routerLink: 'users'
       },
     ];
+
+    this._router.events.subscribe((event: Event) => {
+      this._observeSearch.changeValue('');
+      this.searchValue = '';
+    });
+
+  }
+
+  searchChanged(event: any) {
+    this._observeSearch.changeValue(event.target?.value);
   }
 
 }

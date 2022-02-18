@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableColumn } from 'src/app/shared/model/table-column.model';
+import { ObserveSearchService } from 'src/app/shared/service/observe-search.service';
 import { User } from '../model/user.model';
 import { UsersService } from '../service/users.service';
 
@@ -16,8 +17,11 @@ export class AllUsersComponent implements OnInit {
   data: User[] = [];
   totalRecords: number = 0;
   cols: TableColumn[] = [];
+  searchValue: string = '';
+  tempData: User[] = [];
 
-  constructor(private _usersService: UsersService, private _router: Router) { }
+  constructor(private _usersService: UsersService, private _router: Router,
+    private _observeSearch: ObserveSearchService) { }
 
   ngOnInit(): void {
     this.cols = [
@@ -29,12 +33,14 @@ export class AllUsersComponent implements OnInit {
 
     this.getData();
 
+    this._observeSearch.getChanges().subscribe(val => this.filter(val));
   }
 
   getData() {
     this._usersService.getAll(this.page)
       .subscribe(res => {
         this.data = res.data;
+        this.tempData = [...this.data];
         this.totalRecords = res.total as number;
         this.waiting = false;
       }, er => this.waiting = false);
@@ -48,6 +54,12 @@ export class AllUsersComponent implements OnInit {
 
   details(id: number) {
     this._router.navigate(['users/' + id])
+  }
+
+  filter(val: string) {
+    if(val?.trim()) {
+      this.data = this.tempData.filter(user => user.id == +val);
+    } else this.data = [...this.tempData];
   }
 
 
